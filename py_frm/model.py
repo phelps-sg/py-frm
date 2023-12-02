@@ -42,6 +42,7 @@ def sqlalchemy_model(table):
             _models[table] = model
 
         return wrapper(dataclass)
+
     return decorator
 
 

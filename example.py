@@ -38,16 +38,16 @@ def populate_db(session):
     CourseModel = model_for("courses")
 
     students = [
-        StudentModel(student_id=1, name='Alice'),
-        StudentModel(student_id=2, name='Bob'),
-        StudentModel(student_id=3, name='Charlie')
+        StudentModel(student_id=1, name="Alice"),
+        StudentModel(student_id=2, name="Bob"),
+        StudentModel(student_id=3, name="Charlie"),
     ]
     session.add_all(students)
 
     courses = [
-        CourseModel(course_id=1, title='Mathematics', student_id=1),
-        CourseModel(course_id=2, title='Physics', student_id=2),
-        CourseModel(course_id=3, title='Chemistry', student_id=1)
+        CourseModel(course_id=1, title="Mathematics", student_id=1),
+        CourseModel(course_id=2, title="Physics", student_id=2),
+        CourseModel(course_id=3, title="Chemistry", student_id=1),
     ]
     session.add_all(courses)
 

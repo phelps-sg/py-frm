@@ -4,9 +4,7 @@ from typing import Iterable, Generator
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 
-from py_frm import sqlalchemy_model
-from py_frm.compiler import to_sqlalchemy_query
-from py_frm.model import Base, model_for
+from py_frm import Base, sqlalchemy_model, to_sqlalchemy_query, model_for
 
 
 @sqlalchemy_model(table="students")

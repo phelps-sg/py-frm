@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Iterable, Generator
 
 from sqlalchemy import create_engine, inspect
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 from py_frm import sqlalchemy_model
 from py_frm.compiler import to_sqlalchemy_query
@@ -33,9 +33,6 @@ def get_student_courses(
         for c in courses
         if s.student_id == c.student_id
     )
-
-
-context = {'students': Student, 'courses': Course}
 
 
 if __name__ == "__main__":

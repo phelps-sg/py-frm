@@ -50,3 +50,5 @@ SELECT students.name, courses.title
 FROM students, courses 
 WHERE students.student_id = courses.student_id;
 ~~~
+
+See [the example](./example.py) for the complete runnable code.

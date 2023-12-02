@@ -43,7 +43,7 @@ def get_student_courses(
     )
 ~~~
 
-The above type-annoted function can be statically checked by [mypy](https://www.mypy-lang.org/), and is automatically mapped onto the corresponding SQL query:
+The above type-annotated function can be statically checked by [mypy](https://www.mypy-lang.org/), and is automatically mapped onto the corresponding SQL query:
 
 ~~~sql
 SELECT students.name, courses.title 

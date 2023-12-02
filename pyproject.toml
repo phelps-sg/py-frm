@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "py-frm"
+version = "0.1.0"
+description = "Functional-relational mapping framework for Python"
+authors = ["Steve Phelps <phelps.sg@gmail.com>"]
+license = "MIT license"
+readme = "README.md"
+packages = [{include = "py_frm"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+SQLAlchemy = "^2.0.23"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.7.1"
+black = "^23.11.0"
+pylint = "^3.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

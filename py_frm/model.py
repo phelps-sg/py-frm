@@ -1,10 +1,10 @@
 from dataclasses import fields
-from typing import Type, Any
 
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+models = dict()
 
 
 def create_sqlalchemy_model(dataclass):
@@ -24,14 +24,22 @@ def create_sqlalchemy_model(dataclass):
 
         if foreign_key:
             table, ref_column = foreign_key
-            attributes[field.name] = Column(column_type, ForeignKey(f"{table}.{ref_column}"), primary_key=primary_key)
+            attributes[field.name] = Column(
+                column_type,
+                ForeignKey(f"{table}.{ref_column}"),
+                primary_key=primary_key,
+            )
         else:
             attributes[field.name] = Column(column_type, primary_key=primary_key)
 
     return type(dataclass.__name__ + "Model", (Base,), attributes)
 
 
-def sqlalchemy_model(dataclass):
-    def wrapper(cls):
-        return create_sqlalchemy_model(cls)
-    return wrapper(dataclass)
+def sqlalchemy_model(table):
+    def decorator(dataclass):
+        def wrapper(cls):
+            model = create_sqlalchemy_model(cls)
+            models[table] = model
+
+        return wrapper(dataclass)
+    return decorator

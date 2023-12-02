@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Iterable, Generator
+from typing import Iterable, Generator, Tuple
 
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
@@ -24,7 +24,7 @@ class Course:
 
 def get_student_courses(
     students: Iterable[Student], courses: Iterable[Course]
-) -> Generator:
+) -> Generator[Tuple[str, str], None, None]:
     return (
         (s.name, c.title)
         for s in students

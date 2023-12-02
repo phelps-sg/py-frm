@@ -30,11 +30,12 @@ class Course:
 Database queries are written as type-annotated Python generators using generator comprehensions:
 
 ~~~python
-from typing import Iterable, Generator
+from typing import Iterable, Generator, Tuple
+
 
 def get_student_courses(
     students: Iterable[Student], courses: Iterable[Course]
-) -> Generator:
+) -> Generator[Tuple[str, str], None, None]:
     return (
         (s.name, c.title)
         for s in students

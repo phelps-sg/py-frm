@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
-models = dict()
+_models = dict()
 
 
 def create_sqlalchemy_model(dataclass):
@@ -39,7 +39,11 @@ def sqlalchemy_model(table):
     def decorator(dataclass):
         def wrapper(cls):
             model = create_sqlalchemy_model(cls)
-            models[table] = model
+            _models[table] = model
 
         return wrapper(dataclass)
     return decorator
+
+
+def model_for(table):
+    return _models[table]

@@ -2,7 +2,7 @@ import ast
 import inspect
 
 from sqlalchemy.orm import Session
-from py_frm.model import models
+from py_frm.model import model_for
 
 
 def to_sqlalchemy_query(function, session: Session):
@@ -23,7 +23,7 @@ def to_sqlalchemy_query(function, session: Session):
 
         # Mapping each iterator variable to its corresponding model
         for gen in gen_exp.generators:
-            var_to_model_map[gen.target.id] = models[gen.iter.id]
+            var_to_model_map[gen.target.id] = model_for(gen.iter.id)
 
         # Constructing the SELECT and WHERE clauses
         for gen in gen_exp.generators:

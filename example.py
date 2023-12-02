@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 from py_frm import sqlalchemy_model
 from py_frm.compiler import to_sqlalchemy_query
-from py_frm.model import Base
+from py_frm.model import Base, model_for
 
 
 @sqlalchemy_model(table="students")
@@ -35,16 +35,44 @@ def get_student_courses(
     )
 
 
-if __name__ == "__main__":
+def populate_db(session):
+    StudentModel = model_for("students")
+    CourseModel = model_for("courses")
+
+    students = [
+        StudentModel(student_id=1, name='Alice'),
+        StudentModel(student_id=2, name='Bob'),
+        StudentModel(student_id=3, name='Charlie')
+    ]
+    session.add_all(students)
+
+    courses = [
+        CourseModel(course_id=1, title='Mathematics', student_id=1),
+        CourseModel(course_id=2, title='Physics', student_id=2),
+        CourseModel(course_id=3, title='Chemistry', student_id=1)
+    ]
+    session.add_all(courses)
+
+    session.commit()
+
+
+def main():
     engine = create_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)
     inspector = inspect(engine)
+    Session = sessionmaker(bind=engine)
+    session = Session()
 
     tables = inspector.get_table_names()
     print("Tables in the database:", tables)
 
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    populate_db(session)
+
     query = to_sqlalchemy_query(get_student_courses, session)
+    print(f"SQL: {query.statement}")
     for result in query.all():
         print(result)
+
+
+if __name__ == "__main__":
+    main()
